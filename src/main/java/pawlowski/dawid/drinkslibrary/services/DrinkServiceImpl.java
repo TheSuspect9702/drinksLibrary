@@ -43,9 +43,20 @@ public class DrinkServiceImpl implements DrinkService {
                 .rating(7.8)
                 .build();
 
+        Drink drink3 = Drink.builder()
+                .id(UUID.randomUUID())
+                .name("Mojito")
+                .power(DrinkPower.SOFT)
+                .ingredients(new HashMap<>(){{put("White Rum", 60); put("Lime Juice", 20); put("Simple Syrup", 2); put("Mint Leaves", 3);}})
+                .description("Muddle mint into a shaker tin, then add ice and rest of ingredients. Shake to chill and strain into a highball glass with ice. " +
+                        "Top with club soda, if desired, and garnish with mint.")
+                .rating(9.5)
+                .build();
+
         drinkMap.put(drink0.getId(), drink0);
         drinkMap.put(drink1.getId(), drink1);
         drinkMap.put(drink2.getId(), drink2);
+        drinkMap.put(drink3.getId(), drink3);
     }
     @Override
     public List<Drink> listDrinks() {
