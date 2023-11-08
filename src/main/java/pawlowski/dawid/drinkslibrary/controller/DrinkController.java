@@ -21,6 +21,7 @@ public class DrinkController {
     private final DrinkService drinkService;
 
     @PostMapping
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity handlePost(@RequestBody Drink drink) {
         Drink newDrink = drinkService.saveNewDrink(drink);
 
