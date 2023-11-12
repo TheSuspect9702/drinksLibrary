@@ -1,5 +1,6 @@
 package pawlowski.dawid.drinkslibrary.controller;
 
+import org.springframework.ui.Model;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;

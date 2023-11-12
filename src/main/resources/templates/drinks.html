@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Drink Library</title>
+</head>
+<body>
+<h1>Drink List</h1>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Power</th>
+    </tr>
+    <tr th:each="drink : ${drinks}">
+        <td th:text="${drink.name}"></td>
+        <td th:text="${drink.description}"> </td>
+        <td th:text="${drink.power}"></td>
+    </tr>
+</table>
+</body>
+</html>

@@ -10,4 +10,5 @@ public interface DrinkService {
     List<Drink> listDrinks();
     Drink getDrinkById(UUID id);
     Drink saveNewDrink(Drink drink);
+
 }

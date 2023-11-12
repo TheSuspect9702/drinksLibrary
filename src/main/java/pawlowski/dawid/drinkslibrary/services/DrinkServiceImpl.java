@@ -11,7 +11,6 @@ import java.util.*;
 @Service
 public class DrinkServiceImpl implements DrinkService {
     private Map<UUID,Drink> drinkMap;
-
     public DrinkServiceImpl(){
         this.drinkMap = new HashMap<>();
 
@@ -57,6 +56,8 @@ public class DrinkServiceImpl implements DrinkService {
         drinkMap.put(drink1.getId(), drink1);
         drinkMap.put(drink2.getId(), drink2);
         drinkMap.put(drink3.getId(), drink3);
+
+
     }
     @Override
     public List<Drink> listDrinks() {
