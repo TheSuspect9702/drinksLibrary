@@ -1,0 +1,17 @@
+body {
+    font-family: Arial, serif;
+    background-color: seashell;
+    padding: 40px 0;
+}
+h6 {
+    font-size: 5px;
+}
+tr{
+    padding-left: 30px;
+    padding-right: 30px;
+}
+.descriptionText{
+    font-size: 15px;
+    width: 600px;
+    padding-left: 50px;
+}

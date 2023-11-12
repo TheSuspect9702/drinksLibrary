@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Drink Library</title>
+    <link rel="stylesheet" href="/css/style.css"/>
 </head>
 <body>
 <h1>Drink List</h1>
@@ -11,11 +12,20 @@
         <th>Name</th>
         <th>Description</th>
         <th>Power</th>
+        <th>Ingredients</th>
     </tr>
     <tr th:each="drink : ${drinks}">
         <td th:text="${drink.name}"></td>
-        <td th:text="${drink.description}"> </td>
+        <td th:text="${drink.description}" class="descriptionText"> </td>
         <td th:text="${drink.power}"></td>
+        <td>
+            <ul>
+                <li th:each="ingredient : ${drink.ingredients}">
+                    <span th:text="${ingredient.key} + ': ' + ${ingredient.value}"></span>
+                    </br>
+                </li>
+            </ul>
+        </td>
     </tr>
 </table>
 </body>
