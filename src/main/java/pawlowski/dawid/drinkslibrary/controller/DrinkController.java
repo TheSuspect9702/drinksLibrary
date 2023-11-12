@@ -21,8 +21,31 @@ public class DrinkController {
 
     private final DrinkService drinkService;
 
+    @PatchMapping("{drinkId}")
+    public ResponseEntity updateDrinkPatchById(@PathVariable("drinkId") UUID drinkId, @RequestBody Drink drink) {
+
+        drinkService.patchDrinkId(drinkId, drink);
+
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping("{drinkId}")
+    public ResponseEntity deleteById(@PathVariable("drinkId") UUID drinkId){
+
+        drinkService.deleteDrinkById(drinkId);
+
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("{drinkId}")
+    public ResponseEntity handlePut(@PathVariable("drinkId") UUID drinkId, @RequestBody Drink drink) {
+
+        drinkService.updateDrinkById(drinkId, drink);
+
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+
+    }
     @PostMapping
-    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity handlePost(@RequestBody Drink drink) {
         Drink newDrink = drinkService.saveNewDrink(drink);
 

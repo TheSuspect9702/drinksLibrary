@@ -2,6 +2,7 @@ package pawlowski.dawid.drinkslibrary.services;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import pawlowski.dawid.drinkslibrary.model.Drink;
 import pawlowski.dawid.drinkslibrary.model.DrinkPower;
 
@@ -82,5 +83,40 @@ public class DrinkServiceImpl implements DrinkService {
                 .build();
         drinkMap.put(newDrink.getId(),newDrink);
         return newDrink;
+    }
+
+    @Override
+    public void updateDrinkById(UUID drinkId, Drink drink) {
+        Drink drinkToUpdate = drinkMap.get(drinkId);
+        drinkToUpdate.setName(drink.getName());
+        drinkToUpdate.setIngredients(drink.getIngredients());
+        drinkToUpdate.setDescription(drink.getDescription());
+        drinkToUpdate.setPower(drink.getPower());
+        drinkToUpdate.setRating(drink.getRating());
+
+        drinkMap.put(drinkId, drinkToUpdate);
+    }
+
+    @Override
+    public void deleteDrinkById(UUID drinkId) {
+        drinkMap.remove(drinkId);
+    }
+
+    @Override
+    public void patchDrinkId(UUID drinkId, Drink drink) {
+        Drink drinkToPatch = drinkMap.get(drinkId);
+
+        if(StringUtils.hasText(drink.getName()))
+            drinkToPatch.setName(drink.getName());
+        if(drink.getRating() != null)
+            drinkToPatch.setRating(drink.getRating());
+        if(drink.getIngredients() != null)
+            drinkToPatch.setIngredients(drink.getIngredients());
+        if(drink.getPower() != null)
+            drinkToPatch.setPower(drink.getPower());
+        if(StringUtils.hasText(drink.getDescription()))
+            drinkToPatch.setDescription(drink.getDescription());
+
+
     }
 }
