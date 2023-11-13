@@ -49,7 +49,7 @@ public static final String DRINK_PATH_ID = DRINK_PATH + "/{drinkId}";
         return new ResponseEntity(HttpStatus.NO_CONTENT);
 
     }
-    @PostMapping
+    @PostMapping(DRINK_PATH)
     public ResponseEntity handlePost(@RequestBody Drink drink) {
         Drink newDrink = drinkService.saveNewDrink(drink);
 
