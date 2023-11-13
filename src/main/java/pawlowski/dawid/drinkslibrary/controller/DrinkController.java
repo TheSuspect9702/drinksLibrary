@@ -1,5 +1,6 @@
 package pawlowski.dawid.drinkslibrary.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,14 +15,17 @@ import java.util.List;
 import java.util.UUID;
 
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/drink")
 public class DrinkController {
+public static final String DRINK_PATH = "/api/v1/drink";
+public static final String DRINK_PATH_ID = DRINK_PATH + "/{drinkId}";
+
+
 
     private final DrinkService drinkService;
 
-    @PatchMapping("{drinkId}")
+    @PatchMapping(DRINK_PATH_ID)
     public ResponseEntity updateDrinkPatchById(@PathVariable("drinkId") UUID drinkId, @RequestBody Drink drink) {
 
         drinkService.patchDrinkId(drinkId, drink);
@@ -29,7 +33,7 @@ public class DrinkController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping("{drinkId}")
+    @DeleteMapping(DRINK_PATH_ID)
     public ResponseEntity deleteById(@PathVariable("drinkId") UUID drinkId){
 
         drinkService.deleteDrinkById(drinkId);
@@ -37,7 +41,7 @@ public class DrinkController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("{drinkId}")
+    @PutMapping(DRINK_PATH_ID)
     public ResponseEntity handlePut(@PathVariable("drinkId") UUID drinkId, @RequestBody Drink drink) {
 
         drinkService.updateDrinkById(drinkId, drink);
@@ -50,14 +54,14 @@ public class DrinkController {
         Drink newDrink = drinkService.saveNewDrink(drink);
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Location", "/api/v1/drink/" + newDrink.getId().toString());
+        headers.add("Location", DRINK_PATH + "/" + newDrink.getId().toString());
 
         return new ResponseEntity(headers, HttpStatus.CREATED);
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping (DRINK_PATH)
     public List<Drink> listDrinks() {return drinkService.listDrinks();}
-    @RequestMapping(value = "{drinkId}", method = RequestMethod.GET)
+    @GetMapping(value = DRINK_PATH_ID)
     public Drink getDrinkById(@PathVariable("drinkId") UUID drinkId) {
         log.debug("Get Drink by Id - in controller");
 
