@@ -3,7 +3,7 @@ package pawlowski.dawid.drinkslibrary.services;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import pawlowski.dawid.drinkslibrary.model.Drink;
+import pawlowski.dawid.drinkslibrary.model.DrinkDTO;
 import pawlowski.dawid.drinkslibrary.model.DrinkPower;
 
 import java.util.*;
@@ -11,11 +11,11 @@ import java.util.*;
 @Slf4j
 @Service
 public class DrinkServiceImpl implements DrinkService {
-    private Map<UUID,Drink> drinkMap;
+    private Map<UUID, DrinkDTO> drinkMap;
     public DrinkServiceImpl(){
         this.drinkMap = new HashMap<>();
 
-        Drink drink0 = Drink.builder()
+        DrinkDTO drink0 = DrinkDTO.builder()
                 .id(UUID.randomUUID())
                 .name("Sex on the Beach")
                 .power(DrinkPower.MEDIUM)
@@ -24,7 +24,7 @@ public class DrinkServiceImpl implements DrinkService {
                 .rating(8.4)
                 .build();
 
-        Drink drink1 = Drink.builder()
+        DrinkDTO drink1 = DrinkDTO.builder()
                 .id(UUID.randomUUID())
                 .name("Piña Colada")
                 .power(DrinkPower.STRONG)
@@ -34,7 +34,7 @@ public class DrinkServiceImpl implements DrinkService {
                 .rating(6.2)
                 .build();
 
-        Drink drink2 = Drink.builder()
+        DrinkDTO drink2 = DrinkDTO.builder()
                 .id(UUID.randomUUID())
                 .name("Martini")
                 .power(DrinkPower.EXTRA_STRONG)
@@ -43,7 +43,7 @@ public class DrinkServiceImpl implements DrinkService {
                 .rating(7.8)
                 .build();
 
-        Drink drink3 = Drink.builder()
+        DrinkDTO drink3 = DrinkDTO.builder()
                 .id(UUID.randomUUID())
                 .name("Mojito")
                 .power(DrinkPower.SOFT)
@@ -61,19 +61,19 @@ public class DrinkServiceImpl implements DrinkService {
 
     }
     @Override
-    public List<Drink> listDrinks() {
+    public List<DrinkDTO> listDrinks() {
         return new ArrayList<>(drinkMap.values());
     }
 
     @Override
-    public Drink getDrinkById(UUID id) {
+    public DrinkDTO getDrinkById(UUID id) {
         log.debug("Get Drink by Id - in service. Id: " + id.toString());
         return drinkMap.get(id);
     }
 
     @Override
-    public Drink saveNewDrink(Drink drink) {
-        Drink newDrink = Drink.builder()
+    public DrinkDTO saveNewDrink(DrinkDTO drink) {
+        DrinkDTO newDrink = DrinkDTO.builder()
                 .id(UUID.randomUUID())
                 .name(drink.getName())
                 .power(drink.getPower())
@@ -86,8 +86,8 @@ public class DrinkServiceImpl implements DrinkService {
     }
 
     @Override
-    public void updateDrinkById(UUID drinkId, Drink drink) {
-        Drink drinkToUpdate = drinkMap.get(drinkId);
+    public void updateDrinkById(UUID drinkId, DrinkDTO drink) {
+        DrinkDTO drinkToUpdate = drinkMap.get(drinkId);
         drinkToUpdate.setName(drink.getName());
         drinkToUpdate.setIngredients(drink.getIngredients());
         drinkToUpdate.setDescription(drink.getDescription());
@@ -103,8 +103,8 @@ public class DrinkServiceImpl implements DrinkService {
     }
 
     @Override
-    public void patchDrinkId(UUID drinkId, Drink drink) {
-        Drink drinkToPatch = drinkMap.get(drinkId);
+    public void patchDrinkId(UUID drinkId, DrinkDTO drink) {
+        DrinkDTO drinkToPatch = drinkMap.get(drinkId);
 
         if(StringUtils.hasText(drink.getName()))
             drinkToPatch.setName(drink.getName());

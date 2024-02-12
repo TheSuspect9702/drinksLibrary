@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Data
 @Builder
-public class Drink {
+public class DrinkDTO {
     private UUID id;
     private String name;
     private Double rating;

@@ -1,7 +1,6 @@
 package pawlowski.dawid.drinkslibrary.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -11,7 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import pawlowski.dawid.drinkslibrary.model.Drink;
+import pawlowski.dawid.drinkslibrary.model.DrinkDTO;
 import pawlowski.dawid.drinkslibrary.services.DrinkService;
 import pawlowski.dawid.drinkslibrary.services.DrinkServiceImpl;
 
@@ -46,7 +45,7 @@ public class DrinkControllerTest {
     ArgumentCaptor<UUID> uuidArgumentCaptor;
 
     @Captor
-    ArgumentCaptor<Drink> drinkArgumentCaptor;
+    ArgumentCaptor<DrinkDTO> drinkArgumentCaptor;
 
     @BeforeEach
     void setUp(){
@@ -55,7 +54,7 @@ public class DrinkControllerTest {
 
     @Test
     void testPatchDrink() throws Exception {
-        Drink drink = drinkServiceImpl.listDrinks().get(0);
+        DrinkDTO drink = drinkServiceImpl.listDrinks().get(0);
 
         Map<String,Object> drinkMap = new HashMap<>();
         drinkMap.put("name", "New name");
@@ -75,7 +74,7 @@ public class DrinkControllerTest {
 
     @Test
     void testDeleteDrink() throws Exception {
-        Drink drink = drinkServiceImpl.listDrinks().get(0);
+        DrinkDTO drink = drinkServiceImpl.listDrinks().get(0);
 
         mockMvc.perform(delete(DRINK_PATH_ID, drink.getId())
                 .accept(MediaType.APPLICATION_JSON))
@@ -87,7 +86,7 @@ public class DrinkControllerTest {
 
     @Test
     void testUpdateDrink() throws Exception {
-        Drink drink = drinkServiceImpl.listDrinks().get(0);
+        DrinkDTO drink = drinkServiceImpl.listDrinks().get(0);
 
         mockMvc.perform(put(DRINK_PATH_ID,drink.getId())
                 .accept(MediaType.APPLICATION_JSON)
@@ -95,16 +94,16 @@ public class DrinkControllerTest {
                 .content(objectMapper.writeValueAsString(drink)))
                 .andExpect(status().isNoContent());
 
-        verify(drinkService).updateDrinkById(any(UUID.class), any(Drink.class));
+        verify(drinkService).updateDrinkById(any(UUID.class), any(DrinkDTO.class));
 
     }
 
     @Test
     void testCreateNewDrink() throws Exception {
-        Drink drink = drinkServiceImpl.listDrinks().get(0);
+        DrinkDTO drink = drinkServiceImpl.listDrinks().get(0);
         drink.setId(null);
 
-        given(drinkService.saveNewDrink(any(Drink.class))).willReturn(drinkServiceImpl.listDrinks().get(1));
+        given(drinkService.saveNewDrink(any(DrinkDTO.class))).willReturn(drinkServiceImpl.listDrinks().get(1));
 
         mockMvc.perform(post(DRINK_PATH)
                 .accept(MediaType.APPLICATION_JSON)
@@ -127,8 +126,15 @@ public class DrinkControllerTest {
     }
 
     @Test
+    void getDrinkByIdNotFound() throws Exception {
+        given(drinkService.getDrinkById(any(UUID.class))).willThrow(NotFoundException.class);
+
+        mockMvc.perform(get(DRINK_PATH_ID, UUID.randomUUID()))
+                .andExpect(status().isNotFound());
+    }
+    @Test
     void getDrinkById() throws Exception {
-        Drink drink = drinkServiceImpl.listDrinks().get(0);
+        DrinkDTO drink = drinkServiceImpl.listDrinks().get(0);
 
         given(drinkService.getDrinkById(drink.getId())).willReturn(drink);
 
