@@ -12,7 +12,6 @@ public class DrinkDTO {
     private UUID id;
     private String name;
     private Double rating;
-    private Map<String,Integer> ingredients;
     private DrinkPower power;
     private String description;
 }

@@ -22,8 +22,7 @@ public class Drink {
     private UUID id;
     private String name;
     private Double rating;
-    //utworzyc nowa klase?
-    private Map<String,Integer> ingredients;
     private DrinkPower power;
     private String description;
+    //add ingredients as another table connected by Id of Drink
 }

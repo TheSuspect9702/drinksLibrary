@@ -19,7 +19,6 @@ public class DrinkServiceImpl implements DrinkService {
                 .id(UUID.randomUUID())
                 .name("Sex on the Beach")
                 .power(DrinkPower.MEDIUM)
-                .ingredients(new HashMap<>() {{put("Vodka", 45); put("Peach Schnapps", 15); put("Orange Juice", 60); put("Cranberry Juice", 60);}})
                 .description("Fill a glass with ice and add vodka, peach schnapps, and orange juice. Pour cranberry juice over. Garnish with an orange wedge.")
                 .rating(8.4)
                 .build();
@@ -28,7 +27,6 @@ public class DrinkServiceImpl implements DrinkService {
                 .id(UUID.randomUUID())
                 .name("Piña Colada")
                 .power(DrinkPower.STRONG)
-                .ingredients(new HashMap<>() {{put("Rum", 75); put("Pineapple Juice", 90); put("Coconut Cream", 30);}})
                 .description("Combine rum with unsweetened pineapple juice (you can sub in 3 ounces crushed or whole pineapple) and coconut cream in a blender." +
                         " Blend on high with a cup or so of crushed ice, or 5 to 6 ice cubes. Pour into a tall glass. Garnish with a pineapple and cherry.")
                 .rating(6.2)
@@ -38,7 +36,6 @@ public class DrinkServiceImpl implements DrinkService {
                 .id(UUID.randomUUID())
                 .name("Martini")
                 .power(DrinkPower.EXTRA_STRONG)
-                .ingredients(new HashMap<>() {{put("Gin or Vodka", 90); put("dry Vermouth", 15); put("Lemon peel or Olive", 1);}})
                 .description("Stir ingredients in a mixing glass with ice. Strain into chilled martini glass. Squeeze oil from lemon peel into the glass or garnish with olive.")
                 .rating(7.8)
                 .build();
@@ -47,7 +44,6 @@ public class DrinkServiceImpl implements DrinkService {
                 .id(UUID.randomUUID())
                 .name("Mojito")
                 .power(DrinkPower.SOFT)
-                .ingredients(new HashMap<>(){{put("White Rum", 60); put("Lime Juice", 20); put("Simple Syrup", 2); put("Mint Leaves", 3);}})
                 .description("Muddle mint into a shaker tin, then add ice and rest of ingredients. Shake to chill and strain into a highball glass with ice. " +
                         "Top with club soda, if desired, and garnish with mint.")
                 .rating(9.5)
@@ -77,7 +73,6 @@ public class DrinkServiceImpl implements DrinkService {
                 .id(UUID.randomUUID())
                 .name(drink.getName())
                 .power(drink.getPower())
-                .ingredients(drink.getIngredients())
                 .description(drink.getDescription())
                 .rating(drink.getRating())
                 .build();
@@ -89,7 +84,6 @@ public class DrinkServiceImpl implements DrinkService {
     public void updateDrinkById(UUID drinkId, DrinkDTO drink) {
         DrinkDTO drinkToUpdate = drinkMap.get(drinkId);
         drinkToUpdate.setName(drink.getName());
-        drinkToUpdate.setIngredients(drink.getIngredients());
         drinkToUpdate.setDescription(drink.getDescription());
         drinkToUpdate.setPower(drink.getPower());
         drinkToUpdate.setRating(drink.getRating());
@@ -110,8 +104,6 @@ public class DrinkServiceImpl implements DrinkService {
             drinkToPatch.setName(drink.getName());
         if(drink.getRating() != null)
             drinkToPatch.setRating(drink.getRating());
-        if(drink.getIngredients() != null)
-            drinkToPatch.setIngredients(drink.getIngredients());
         if(drink.getPower() != null)
             drinkToPatch.setPower(drink.getPower());
         if(StringUtils.hasText(drink.getDescription()))
