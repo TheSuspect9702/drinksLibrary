@@ -31,7 +31,8 @@ public class BootstrapData implements CommandLineRunner {
         Drink drink1 = Drink.builder()
                 .name("Piña Colada")
                 .power(DrinkPower.STRONG)
-                .description("Combine rum with unsweetened pineapple juice (you can sub in 3 ounces crushed or whole pineapple) and coconut cream in a blender.")
+                .description("Combine rum with unsweetened pineapple juice (you can sub in 3 ounces crushed or whole pineapple) and coconut cream in a blender." +
+                        " Blend on high with a cup or so of crushed ice, or 5 to 6 ice cubes. Pour into a tall glass. Garnish with a pineapple and cherry.")
                 .rating(6.2)
                 .build();
 
@@ -45,7 +46,8 @@ public class BootstrapData implements CommandLineRunner {
         Drink drink3 = Drink.builder()
                 .name("Mojito")
                 .power(DrinkPower.SOFT)
-                .description("Muddle mint into a shaker tin, then add ice and rest of ingredients. Shake to chill and strain into a highball glass with ice. ")
+                .description("Muddle mint into a shaker tin, then add ice and rest of ingredients. Shake to chill and strain into a highball glass with ice. " +
+                        "Top with club soda, if desired, and garnish with mint.")
                 .rating(9.5)
                 .build();
         drinkRepository.saveAll(Arrays.asList(drink0,drink1,drink2,drink3));

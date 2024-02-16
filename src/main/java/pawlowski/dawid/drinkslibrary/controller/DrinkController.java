@@ -10,6 +10,7 @@ import pawlowski.dawid.drinkslibrary.model.DrinkDTO;
 import pawlowski.dawid.drinkslibrary.services.DrinkService;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -34,7 +35,8 @@ public static final String DRINK_PATH_ID = DRINK_PATH + "/{drinkId}";
     @DeleteMapping(DRINK_PATH_ID)
     public ResponseEntity deleteById(@PathVariable("drinkId") UUID drinkId){
 
-        drinkService.deleteDrinkById(drinkId);
+        if( !drinkService.deleteDrinkById(drinkId))
+            throw new NotFoundException();
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
@@ -42,7 +44,8 @@ public static final String DRINK_PATH_ID = DRINK_PATH + "/{drinkId}";
     @PutMapping(DRINK_PATH_ID)
     public ResponseEntity handlePut(@PathVariable("drinkId") UUID drinkId, @RequestBody DrinkDTO drink) {
 
-        drinkService.updateDrinkById(drinkId, drink);
+        if(drinkService.updateDrinkById(drinkId, drink).isEmpty())
+            throw new NotFoundException();
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
 
@@ -65,9 +68,7 @@ public static final String DRINK_PATH_ID = DRINK_PATH + "/{drinkId}";
         return ResponseEntity.notFound().build();
     }
     @GetMapping(value = DRINK_PATH_ID)
-    public DrinkDTO getDrinkById(@PathVariable("drinkId") UUID drinkId) {
-        log.debug("Get Drink by Id - in controller");
-
-        return drinkService.getDrinkById(drinkId);
+    public DrinkDTO getDrinkById(@PathVariable("drinkId") UUID drinkId){
+        return drinkService.getDrinkById(drinkId).orElseThrow(NotFoundException::new);
     }
 }

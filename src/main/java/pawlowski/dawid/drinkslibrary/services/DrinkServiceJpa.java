@@ -8,7 +8,10 @@ import pawlowski.dawid.drinkslibrary.model.DrinkDTO;
 import pawlowski.dawid.drinkslibrary.repositories.DrinkRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 @Service
 @Primary
@@ -19,27 +22,45 @@ public class DrinkServiceJpa implements DrinkService{
 
     @Override
     public List<DrinkDTO> listDrinks() {
-        return null;
+        return drinkRepository.findAll()
+                .stream()
+                .map(drinkMapper::drinkToDrinkDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public DrinkDTO getDrinkById(UUID id) {
-        return null;
+    public Optional<DrinkDTO> getDrinkById(UUID id) {
+        return Optional.ofNullable(drinkMapper.drinkToDrinkDto(drinkRepository.findById(id)
+                .orElse(null)));
     }
 
     @Override
     public DrinkDTO saveNewDrink(DrinkDTO drink) {
-        return null;
+        return drinkMapper.drinkToDrinkDto(drinkRepository.save(drinkMapper.drinkDtoToDrink(drink)));
     }
 
     @Override
-    public void updateDrinkById(UUID drinkId, DrinkDTO drink) {
+    public Optional<DrinkDTO> updateDrinkById(UUID drinkId, DrinkDTO drink) {
+        AtomicReference<Optional<DrinkDTO>> atomicReference = new AtomicReference<>();
 
+        drinkRepository.findById(drinkId).ifPresentOrElse(foundDrink ->{
+            foundDrink.setName(drink.getName());
+            foundDrink.setRating(drink.getRating());
+            foundDrink.setPower(drink.getPower());
+            atomicReference.set(Optional.of(drinkMapper.drinkToDrinkDto(drinkRepository.save(foundDrink))));
+        }, () -> {
+            atomicReference.set(Optional.empty());
+        });
+        return atomicReference.get();
     }
 
     @Override
-    public void deleteDrinkById(UUID drinkId) {
-
+    public Boolean deleteDrinkById(UUID drinkId) {
+        if(drinkRepository.existsById(drinkId)){
+            drinkRepository.deleteById(drinkId);
+            return true;
+        }
+        return false;
     }
 
     @Override

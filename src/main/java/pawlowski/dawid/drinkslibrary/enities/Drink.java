@@ -23,6 +23,7 @@ public class Drink {
     private String name;
     private Double rating;
     private DrinkPower power;
+    @Column(length = 10000, columnDefinition = "text",nullable = false)
     private String description;
     //add ingredients as another table connected by Id of Drink
 }

@@ -62,9 +62,9 @@ public class DrinkServiceImpl implements DrinkService {
     }
 
     @Override
-    public DrinkDTO getDrinkById(UUID id) {
+    public Optional<DrinkDTO> getDrinkById(UUID id) {
         log.debug("Get Drink by Id - in service. Id: " + id.toString());
-        return drinkMap.get(id);
+        return Optional.ofNullable(drinkMap.get(id));
     }
 
     @Override
@@ -81,7 +81,7 @@ public class DrinkServiceImpl implements DrinkService {
     }
 
     @Override
-    public void updateDrinkById(UUID drinkId, DrinkDTO drink) {
+    public Optional<DrinkDTO> updateDrinkById(UUID drinkId, DrinkDTO drink) {
         DrinkDTO drinkToUpdate = drinkMap.get(drinkId);
         drinkToUpdate.setName(drink.getName());
         drinkToUpdate.setDescription(drink.getDescription());
@@ -89,11 +89,14 @@ public class DrinkServiceImpl implements DrinkService {
         drinkToUpdate.setRating(drink.getRating());
 
         drinkMap.put(drinkId, drinkToUpdate);
+        return Optional.of(drinkToUpdate);
     }
 
     @Override
-    public void deleteDrinkById(UUID drinkId) {
+    public Boolean deleteDrinkById(UUID drinkId) {
         drinkMap.remove(drinkId);
+
+        return true;
     }
 
     @Override

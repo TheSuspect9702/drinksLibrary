@@ -16,6 +16,7 @@ import pawlowski.dawid.drinkslibrary.services.DrinkServiceImpl;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 import static org.hamcrest.core.Is.is;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -76,6 +77,8 @@ public class DrinkControllerTest {
     void testDeleteDrink() throws Exception {
         DrinkDTO drink = drinkServiceImpl.listDrinks().get(0);
 
+        given(drinkService.deleteDrinkById(any())).willReturn(true);
+
         mockMvc.perform(delete(DRINK_PATH_ID, drink.getId())
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
@@ -87,6 +90,8 @@ public class DrinkControllerTest {
     @Test
     void testUpdateDrink() throws Exception {
         DrinkDTO drink = drinkServiceImpl.listDrinks().get(0);
+
+        given(drinkService.updateDrinkById(any(),any())).willReturn(Optional.of(drink));
 
         mockMvc.perform(put(DRINK_PATH_ID,drink.getId())
                 .accept(MediaType.APPLICATION_JSON)
@@ -136,7 +141,7 @@ public class DrinkControllerTest {
     void getDrinkById() throws Exception {
         DrinkDTO drink = drinkServiceImpl.listDrinks().get(0);
 
-        given(drinkService.getDrinkById(drink.getId())).willReturn(drink);
+        given(drinkService.getDrinkById(drink.getId())).willReturn(Optional.of(drink));
 
         mockMvc.perform(get(DRINK_PATH_ID, drink.getId())
                 .accept(MediaType.APPLICATION_JSON))
