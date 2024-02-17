@@ -100,7 +100,7 @@ public class DrinkServiceImpl implements DrinkService {
     }
 
     @Override
-    public void patchDrinkId(UUID drinkId, DrinkDTO drink) {
+    public Optional<DrinkDTO> patchDrinkId(UUID drinkId, DrinkDTO drink) {
         DrinkDTO drinkToPatch = drinkMap.get(drinkId);
 
         if(StringUtils.hasText(drink.getName()))
@@ -112,6 +112,6 @@ public class DrinkServiceImpl implements DrinkService {
         if(StringUtils.hasText(drink.getDescription()))
             drinkToPatch.setDescription(drink.getDescription());
 
-
+        return Optional.of(drinkToPatch);
     }
 }

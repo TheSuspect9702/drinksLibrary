@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pawlowski.dawid.drinkslibrary.model.DrinkDTO;
 import pawlowski.dawid.drinkslibrary.services.DrinkService;
@@ -42,7 +43,7 @@ public static final String DRINK_PATH_ID = DRINK_PATH + "/{drinkId}";
     }
 
     @PutMapping(DRINK_PATH_ID)
-    public ResponseEntity handlePut(@PathVariable("drinkId") UUID drinkId, @RequestBody DrinkDTO drink) {
+    public ResponseEntity handlePut(@PathVariable("drinkId") UUID drinkId,@Validated @RequestBody DrinkDTO drink) {
 
         if(drinkService.updateDrinkById(drinkId, drink).isEmpty())
             throw new NotFoundException();
@@ -51,7 +52,7 @@ public static final String DRINK_PATH_ID = DRINK_PATH + "/{drinkId}";
 
     }
     @PostMapping(DRINK_PATH)
-    public ResponseEntity handlePost(@RequestBody DrinkDTO drink) {
+    public ResponseEntity handlePost(@Validated @RequestBody DrinkDTO drink) {
         DrinkDTO newDrink = drinkService.saveNewDrink(drink);
 
         HttpHeaders headers = new HttpHeaders();

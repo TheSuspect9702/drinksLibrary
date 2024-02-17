@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import pawlowski.dawid.drinkslibrary.model.DrinkDTO;
 import pawlowski.dawid.drinkslibrary.services.DrinkService;
 import pawlowski.dawid.drinkslibrary.services.DrinkServiceImpl;
@@ -101,6 +102,43 @@ public class DrinkControllerTest {
 
         verify(drinkService).updateDrinkById(any(UUID.class), any(DrinkDTO.class));
 
+    }
+
+    @Test
+    void nullNameCreateDrink() throws Exception{
+        DrinkDTO drinkDTO = DrinkDTO.builder().build();
+        given(drinkService.saveNewDrink(any(DrinkDTO.class))).willReturn(drinkServiceImpl.listDrinks().get(1));
+
+        MvcResult mvcResult = mockMvc.perform(post(DRINK_PATH)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(drinkDTO)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.length()", is(4)))
+                .andReturn();
+
+        System.out.println(mvcResult.getResponse().getContentAsString());
+
+    }
+
+    @Test
+    void updateDrinkWithNullValues() throws Exception{
+        DrinkDTO drinkDTO = drinkServiceImpl.listDrinks().get(0);
+        drinkDTO.setPower(null);
+        drinkDTO.setRating(-1.0);
+        drinkDTO.setDescription(null);
+        given(drinkService.updateDrinkById(any(),any()))
+                .willReturn(Optional.of(drinkDTO));
+
+        MvcResult mvcResult = mockMvc.perform(put(DRINK_PATH_ID, drinkDTO.getId())
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(drinkDTO)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.length()", is(3)))
+                .andReturn();
+
+        System.out.println(mvcResult.getResponse().getContentAsString());
     }
 
     @Test

@@ -3,6 +3,7 @@ package pawlowski.dawid.drinkslibrary.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import pawlowski.dawid.drinkslibrary.mappers.DrinkMapper;
 import pawlowski.dawid.drinkslibrary.model.DrinkDTO;
 import pawlowski.dawid.drinkslibrary.repositories.DrinkRepository;
@@ -64,7 +65,21 @@ public class DrinkServiceJpa implements DrinkService{
     }
 
     @Override
-    public void patchDrinkId(UUID drinkId, DrinkDTO drink) {
-
+    public Optional<DrinkDTO> patchDrinkId(UUID drinkId, DrinkDTO drink) {
+        AtomicReference<Optional<DrinkDTO>> atomicReference = new AtomicReference<>();
+        drinkRepository.findById(drinkId).ifPresentOrElse( drinkToPatch -> {
+            if(StringUtils.hasText(drink.getName()))
+                drinkToPatch.setName(drink.getName());
+            if(drink.getRating() != null)
+                drinkToPatch.setRating(drink.getRating());
+            if(drink.getPower() != null)
+                drinkToPatch.setPower(drink.getPower());
+            if(StringUtils.hasText(drink.getDescription()))
+                drinkToPatch.setDescription(drink.getDescription());
+            atomicReference.set(Optional.of(drinkMapper.drinkToDrinkDto(drinkRepository.save(drinkToPatch))));
+        }, () -> {
+            atomicReference.set(Optional.empty());
+        });
+        return atomicReference.get();
     }
 }
