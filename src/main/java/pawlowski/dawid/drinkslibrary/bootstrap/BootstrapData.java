@@ -4,17 +4,22 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import pawlowski.dawid.drinkslibrary.enities.Drink;
+import pawlowski.dawid.drinkslibrary.enities.Ingredient;
 import pawlowski.dawid.drinkslibrary.model.DrinkPower;
+import pawlowski.dawid.drinkslibrary.model.IngredientDTO;
 import pawlowski.dawid.drinkslibrary.repositories.DrinkRepository;
+import pawlowski.dawid.drinkslibrary.repositories.IngredientRepository;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
 public class BootstrapData implements CommandLineRunner {
     private final DrinkRepository drinkRepository;
+    private final IngredientRepository ingredientRepository;
     @Override
     public void run(String... args) throws Exception {
         loadDrinkData();
@@ -50,6 +55,72 @@ public class BootstrapData implements CommandLineRunner {
                         "Top with club soda, if desired, and garnish with mint.")
                 .rating(9.5)
                 .build();
+
+        Ingredient ingredient0 = Ingredient.builder()
+                .alcoholType("Vodka [ml]")
+                .quantity(50.0)
+                .build();
+        Ingredient ingredient1 = Ingredient.builder()
+                .alcoholType("Peach Schnapps [ml]")
+                .quantity(25)
+                .build();
+        Ingredient ingredient2 = Ingredient.builder()
+                .alcoholType("Orange Slices")
+                .quantity(2)
+                .build();
+        Ingredient ingredient3 = Ingredient.builder()
+                .alcoholType("Cranberry Juice [ml]")
+                .quantity(50)
+                .build();
+        Ingredient ingredient4 = Ingredient.builder()
+                .alcoholType("Pineapple Juice [ml]")
+                .quantity(120)
+                .build();
+        Ingredient ingredient5 = Ingredient.builder()
+                .alcoholType("White Rum [ml]")
+                .quantity(60)
+                .build();
+        Ingredient ingredient6 = Ingredient.builder()
+                .alcoholType("Coconut Cream [ml]")
+                .quantity(60)
+                .build();
+        Ingredient ingredient7 = Ingredient.builder()
+                .alcoholType("Vodka [ml]")
+                .quantity(60)
+                .build();
+        Ingredient ingredient8 = Ingredient.builder()
+                .alcoholType("Dry Vermouth table spoon")
+                .quantity(1)
+                .build();
+        Ingredient ingredient9 = Ingredient.builder()
+                .alcoholType("Olive Peal")
+                .quantity(1)
+                .build();
+        Ingredient ingredient10 = Ingredient.builder()
+                .alcoholType("Lime Juice [ml]")
+                .quantity(30)
+                .build();
+        Ingredient ingredient11 = Ingredient.builder()
+                .alcoholType("Sugar table spoon")
+                .quantity(1)
+                .build();
+        Ingredient ingredient12 = Ingredient.builder()
+                .alcoholType("Mint Leaves")
+                .quantity(5)
+                .build();
+        Ingredient ingredient13 = Ingredient.builder()
+                .alcoholType("Soda Water [ml]")
+                .quantity(30)
+                .build();
+        Ingredient ingredient14 = Ingredient.builder()
+                .alcoholType("White Rum [ml]")
+                .quantity(60)
+                .build();
+
+        List<Ingredient> ingredients = Arrays.asList(ingredient0, ingredient1, ingredient2, ingredient3, ingredient4, ingredient5, ingredient6, ingredient7,
+                ingredient8, ingredient9, ingredient10, ingredient11, ingredient12, ingredient13, ingredient14);
+        ingredientRepository.saveAll(ingredients);
         drinkRepository.saveAll(Arrays.asList(drink0,drink1,drink2,drink3));
+
     }
 }
