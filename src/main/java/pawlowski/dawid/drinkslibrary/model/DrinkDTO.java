@@ -5,7 +5,9 @@ import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Data;
+import pawlowski.dawid.drinkslibrary.enities.Ingredient;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -27,4 +29,6 @@ public class DrinkDTO {
     @NotNull
     @Size(max = 10000)
     private String description;
+
+    private List<Ingredient> ingredients;
 }
