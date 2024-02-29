@@ -14,7 +14,7 @@ public class IngredientDTO {
     private UUID id;
 
     @NotNull
-    private IngredientType alcoholType;
+    private String alcoholType;
 
     @NotNull
     @Positive

@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
-import pawlowski.dawid.drinkslibrary.model.IngredientType;
 
 import java.util.UUID;
 
@@ -21,7 +20,7 @@ public class Ingredient {
     private UUID id;
 
     @NotNull
-    private IngredientType alcoholType;
+    private String alcoholType;
 
     @NotNull
     @Positive
