@@ -82,4 +82,10 @@ public class DrinkServiceJpa implements DrinkService{
         });
         return atomicReference.get();
     }
+
+    @Override
+    public Boolean deleteDrinks() {
+        drinkRepository.deleteAll();
+        return true;
+    }
 }

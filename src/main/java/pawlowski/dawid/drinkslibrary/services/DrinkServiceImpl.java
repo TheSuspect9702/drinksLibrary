@@ -114,4 +114,11 @@ public class DrinkServiceImpl implements DrinkService {
 
         return Optional.of(drinkToPatch);
     }
+
+    @Override
+    public Boolean deleteDrinks() {
+        drinkMap.clear();
+
+        return true;
+    }
 }

@@ -1,5 +1,6 @@
 package pawlowski.dawid.drinkslibrary.enities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -44,6 +45,7 @@ public class Drink {
     @Column(length = 10000)
     private String description;
     //add ingredients as another table connected by Id of Drink
-    @OneToMany(mappedBy = "drink")
+    @JsonBackReference
+    @OneToMany(mappedBy = "drink", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Ingredient> ingredients;
 }

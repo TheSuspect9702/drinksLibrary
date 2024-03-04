@@ -41,6 +41,13 @@ public static final String DRINK_PATH_ID = DRINK_PATH + "/{drinkId}";
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
+    @DeleteMapping(DRINK_PATH)
+    public ResponseEntity deleteDrinks() {
+        if( !drinkService.deleteDrinks())
+            throw new NotFoundException();
+
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
 
     @PutMapping(DRINK_PATH_ID)
     public ResponseEntity handlePut(@PathVariable("drinkId") UUID drinkId,@Validated @RequestBody DrinkDTO drink) {

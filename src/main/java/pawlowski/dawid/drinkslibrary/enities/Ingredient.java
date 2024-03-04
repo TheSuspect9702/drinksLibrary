@@ -1,11 +1,14 @@
 package pawlowski.dawid.drinkslibrary.enities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.type.SqlTypes;
 
 import java.util.UUID;
@@ -33,5 +36,7 @@ public class Ingredient {
 
     @ManyToOne
     @JoinColumn(name="drink_id")
+    @JsonManagedReference
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Drink drink;
 }

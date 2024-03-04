@@ -9,6 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pawlowski.dawid.drinkslibrary.model.DrinkDTO;
 import pawlowski.dawid.drinkslibrary.model.IngredientDTO;
+import pawlowski.dawid.drinkslibrary.repositories.DrinkRepository;
 import pawlowski.dawid.drinkslibrary.services.IngredientService;
 
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @RestController
 public class IngredientController {
+    private final DrinkRepository drinkRepository;
     public static final String INGREDIENT_PATH = "/api/v1/ingredient";
     public static final String INGREDIENT_PATH_ID = INGREDIENT_PATH + "/{ingredientId}";
 
@@ -46,7 +48,7 @@ public class IngredientController {
 
     @PostMapping(INGREDIENT_PATH)
     public ResponseEntity handlePost(@Validated @RequestBody IngredientDTO ingredientDTO) {
-        IngredientDTO newIngredient = ingredientService.saveNewIngredient(ingredientDTO);
+        IngredientDTO newIngredient = ingredientService.saveNewIngredient(ingredientDTO, drinkRepository.getById(ingredientDTO.getDrink().getId()));
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", INGREDIENT_PATH + "/" + newIngredient.getId().toString());
@@ -69,4 +71,11 @@ public class IngredientController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
+    @DeleteMapping(INGREDIENT_PATH)
+    public ResponseEntity deleteIngredients(){
+        if( !ingredientService.deleteIngredients())
+            throw new NotFoundException();
+
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
 }

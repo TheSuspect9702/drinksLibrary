@@ -1,5 +1,6 @@
 package pawlowski.dawid.drinkslibrary.services;
 
+import pawlowski.dawid.drinkslibrary.enities.Drink;
 import pawlowski.dawid.drinkslibrary.model.IngredientDTO;
 
 import java.util.List;
@@ -14,11 +15,13 @@ public interface IngredientService {
 
     //List<Optional<IngredientDTO>> getIngredientsById(UUID id);
 
-    IngredientDTO saveNewIngredient(IngredientDTO ingredientDTO);
+    IngredientDTO saveNewIngredient(IngredientDTO ingredientDTO, Drink drink);
 
-    List<IngredientDTO> saveNewIngredients(List<IngredientDTO> ingredientDTOS);
+    //List<IngredientDTO> saveNewIngredients(List<IngredientDTO> ingredientDTOS);
 
     Optional<IngredientDTO> updateIngredientById(UUID id, IngredientDTO ingredientDTO);
 
     Boolean deleteIngredientById(UUID id);
+
+    Boolean deleteIngredients();
 }
