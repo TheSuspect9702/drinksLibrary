@@ -145,11 +145,11 @@ class DrinkControllerIntegrationTest {
 
     @Test
     void testGetDrinkById() {
-    Drink drink = drinkRepository.findAll().get(0);
+        Drink drink = drinkRepository.findAll().get(0);
 
-    DrinkDTO drinkDTO = drinkController.getDrinkById(drink.getId());
+        DrinkDTO drinkDTO = drinkController.getDrinkById(drink.getId());
 
-    assertThat(drinkDTO).isNotNull();
+        assertThat(drinkDTO).isNotNull();
     }
 
     @Test

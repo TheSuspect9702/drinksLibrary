@@ -36,7 +36,6 @@ public class Ingredient {
 
     @ManyToOne
     @JoinColumn(name="drink_id")
-    @JsonManagedReference
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Drink drink;
 }
