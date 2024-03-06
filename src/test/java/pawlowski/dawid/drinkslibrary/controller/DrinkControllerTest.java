@@ -114,7 +114,7 @@ public class DrinkControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(drinkDTO)))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.length()", is(4)))
+                .andExpect(jsonPath("$.length()", is(8)))
                 .andReturn();
 
         System.out.println(mvcResult.getResponse().getContentAsString());
@@ -135,7 +135,7 @@ public class DrinkControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(drinkDTO)))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.length()", is(3)))
+                .andExpect(jsonPath("$.length()", is(5)))
                 .andReturn();
 
         System.out.println(mvcResult.getResponse().getContentAsString());
