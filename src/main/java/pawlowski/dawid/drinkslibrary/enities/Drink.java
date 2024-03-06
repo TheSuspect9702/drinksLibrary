@@ -3,9 +3,7 @@ package pawlowski.dawid.drinkslibrary.enities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrZero;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcType;
@@ -32,6 +30,8 @@ public class Drink {
     private UUID id;
 
     @NotNull
+    @NotEmpty
+    @NotBlank
     private String name;
 
     @NotNull
@@ -42,6 +42,8 @@ public class Drink {
     private DrinkPower power;
 
     @NotNull
+    @NotEmpty
+    @NotBlank
     @Size(max = 10000)
     @Column(length = 10000)
     private String description;

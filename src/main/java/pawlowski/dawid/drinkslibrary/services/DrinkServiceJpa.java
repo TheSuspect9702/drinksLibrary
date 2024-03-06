@@ -68,13 +68,13 @@ public class DrinkServiceJpa implements DrinkService{
     public Optional<DrinkDTO> patchDrinkId(UUID drinkId, DrinkDTO drink) {
         AtomicReference<Optional<DrinkDTO>> atomicReference = new AtomicReference<>();
         drinkRepository.findById(drinkId).ifPresentOrElse( drinkToPatch -> {
-            if(StringUtils.hasText(drink.getName()))
+            if(drink.getName() != null)
                 drinkToPatch.setName(drink.getName());
             if(drink.getRating() != null)
                 drinkToPatch.setRating(drink.getRating());
             if(drink.getPower() != null)
                 drinkToPatch.setPower(drink.getPower());
-            if(StringUtils.hasText(drink.getDescription()))
+            if(drink.getDescription() != null)
                 drinkToPatch.setDescription(drink.getDescription());
             atomicReference.set(Optional.of(drinkMapper.drinkToDrinkDto(drinkRepository.save(drinkToPatch))));
         }, () -> {

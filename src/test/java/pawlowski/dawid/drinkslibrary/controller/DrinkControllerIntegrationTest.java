@@ -62,7 +62,7 @@ class DrinkControllerIntegrationTest {
         Drink drink = drinkRepository.findAll().get(0);
 
         Map<String,Object> drinkMap = new HashMap<>();
-        drinkMap.put("rating", Double.valueOf(-9.99));
+        drinkMap.put("rating", -9.99);
         MvcResult response = mockMvc.perform(patch(DRINK_PATH_ID, drink.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)

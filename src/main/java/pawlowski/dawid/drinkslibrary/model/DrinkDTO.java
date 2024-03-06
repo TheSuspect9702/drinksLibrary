@@ -1,8 +1,6 @@
 package pawlowski.dawid.drinkslibrary.model;
 
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrZero;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Builder;
 import lombok.Data;
 import pawlowski.dawid.drinkslibrary.enities.Ingredient;
@@ -17,6 +15,8 @@ public class DrinkDTO {
     private UUID id;
 
     @NotNull
+    @NotEmpty
+    @NotBlank
     private String name;
 
     @NotNull
@@ -27,6 +27,8 @@ public class DrinkDTO {
     private DrinkPower power;
 
     @NotNull
+    @NotEmpty
+    @NotBlank
     @Size(max = 10000)
     private String description;
 

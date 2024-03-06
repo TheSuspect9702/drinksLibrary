@@ -64,72 +64,72 @@ public class BootstrapData implements CommandLineRunner {
                 .build();
         Ingredient ingredient1 = Ingredient.builder()
                 .alcoholType("Peach Schnapps [ml]")
-                .quantity(25)
+                .quantity(25.0)
                 .drink(drink0)
                 .build();
         Ingredient ingredient2 = Ingredient.builder()
                 .alcoholType("Orange Slices")
-                .quantity(2)
+                .quantity(2.0)
                 .drink(drink0)
                 .build();
         Ingredient ingredient3 = Ingredient.builder()
                 .alcoholType("Cranberry Juice [ml]")
-                .quantity(50)
+                .quantity(50.0)
                 .drink(drink0)
                 .build();
         Ingredient ingredient4 = Ingredient.builder()
                 .alcoholType("Pineapple Juice [ml]")
-                .quantity(120)
+                .quantity(120.0)
                 .drink(drink1)
                 .build();
         Ingredient ingredient5 = Ingredient.builder()
                 .alcoholType("White Rum [ml]")
-                .quantity(60)
+                .quantity(60.0)
                 .drink(drink1)
                 .build();
         Ingredient ingredient6 = Ingredient.builder()
                 .alcoholType("Coconut Cream [ml]")
-                .quantity(60)
+                .quantity(60.0)
                 .drink(drink1)
                 .build();
         Ingredient ingredient7 = Ingredient.builder()
                 .alcoholType("Vodka [ml]")
-                .quantity(60)
+                .quantity(60.0)
                 .drink(drink2)
                 .build();
         Ingredient ingredient8 = Ingredient.builder()
                 .alcoholType("Dry Vermouth table spoon")
-                .quantity(1)
+                .quantity(1.0)
                 .drink(drink2)
                 .build();
         Ingredient ingredient9 = Ingredient.builder()
                 .alcoholType("Olive Peal")
-                .quantity(1)
+                .quantity(1.0)
                 .drink(drink2)
                 .build();
         Ingredient ingredient10 = Ingredient.builder()
                 .alcoholType("Lime Juice [ml]")
-                .quantity(30)
+                .quantity(30.0)
                 .drink(drink3)
                 .build();
         Ingredient ingredient11 = Ingredient.builder()
                 .alcoholType("Sugar table spoon")
-                .quantity(1)
+                .quantity(1.0)
                 .drink(drink3)
                 .build();
         Ingredient ingredient12 = Ingredient.builder()
                 .alcoholType("Mint Leaves")
-                .quantity(5)
+                .quantity(5.0)
                 .drink(drink3)
                 .build();
         Ingredient ingredient13 = Ingredient.builder()
                 .alcoholType("Soda Water [ml]")
-                .quantity(30)
+                .quantity(30.0)
                 .drink(drink3)
                 .build();
         Ingredient ingredient14 = Ingredient.builder()
                 .alcoholType("White Rum [ml]")
-                .quantity(60)
+                .quantity(60.0)
                 .drink(drink3)
                 .build();
 

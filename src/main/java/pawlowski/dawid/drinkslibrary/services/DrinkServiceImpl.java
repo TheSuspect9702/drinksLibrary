@@ -103,13 +103,13 @@ public class DrinkServiceImpl implements DrinkService {
     public Optional<DrinkDTO> patchDrinkId(UUID drinkId, DrinkDTO drink) {
         DrinkDTO drinkToPatch = drinkMap.get(drinkId);
 
-        if(StringUtils.hasText(drink.getName()))
+        if(drink.getName() != null)
             drinkToPatch.setName(drink.getName());
         if(drink.getRating() != null)
             drinkToPatch.setRating(drink.getRating());
         if(drink.getPower() != null)
             drinkToPatch.setPower(drink.getPower());
-        if(StringUtils.hasText(drink.getDescription()))
+        if(drink.getDescription() != null)
             drinkToPatch.setDescription(drink.getDescription());
 
         return Optional.of(drinkToPatch);
