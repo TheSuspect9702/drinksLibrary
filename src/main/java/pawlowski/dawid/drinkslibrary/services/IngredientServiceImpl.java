@@ -115,12 +115,12 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
-    public IngredientDTO saveNewIngredient(IngredientDTO ingredientDTO, Drink drink) {
+    public IngredientDTO saveNewIngredient(IngredientDTO ingredientDTO) {
         IngredientDTO newIngredient = IngredientDTO.builder()
                 .id(UUID.randomUUID())
                 .alcoholType(ingredientDTO.getAlcoholType())
                 .quantity(ingredientDTO.getQuantity())
-                .drink(drink)
+                .drink(ingredientDTO.getDrink())
                 .build();
         ingredientMap.put(newIngredient.getId(),newIngredient);
         return newIngredient;

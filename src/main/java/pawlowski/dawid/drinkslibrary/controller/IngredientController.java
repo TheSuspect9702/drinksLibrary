@@ -19,7 +19,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @RestController
 public class IngredientController {
-    private final DrinkRepository drinkRepository;
     public static final String INGREDIENT_PATH = "/api/v1/ingredient";
     public static final String INGREDIENT_PATH_ID = INGREDIENT_PATH + "/{ingredientId}";
 
@@ -48,7 +47,7 @@ public class IngredientController {
 
     @PostMapping(INGREDIENT_PATH)
     public ResponseEntity handlePost(@Validated @RequestBody IngredientDTO ingredientDTO) {
-        IngredientDTO newIngredient = ingredientService.saveNewIngredient(ingredientDTO, drinkRepository.getById(ingredientDTO.getDrink().getId()));
+        IngredientDTO newIngredient = ingredientService.saveNewIngredient(ingredientDTO);
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", INGREDIENT_PATH + "/" + newIngredient.getId().toString());

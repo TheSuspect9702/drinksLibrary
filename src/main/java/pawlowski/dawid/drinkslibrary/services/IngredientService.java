@@ -15,7 +15,7 @@ public interface IngredientService {
 
     //List<Optional<IngredientDTO>> getIngredientsById(UUID id);
 
-    IngredientDTO saveNewIngredient(IngredientDTO ingredientDTO, Drink drink);
+    IngredientDTO saveNewIngredient(IngredientDTO ingredientDTO);
 
     //List<IngredientDTO> saveNewIngredients(List<IngredientDTO> ingredientDTOS);
 

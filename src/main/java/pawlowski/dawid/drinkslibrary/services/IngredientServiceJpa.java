@@ -38,7 +38,7 @@ public class IngredientServiceJpa implements IngredientService {
     }
 
     @Override
-    public IngredientDTO saveNewIngredient(IngredientDTO ingredientDTO, Drink drink) {
+    public IngredientDTO saveNewIngredient(IngredientDTO ingredientDTO) {
         return ingredientMapper.ingredientToIngredientDto(ingredientRepository.save(ingredientMapper.ingredientDtoToIngredient(ingredientDTO)));
     }
 
