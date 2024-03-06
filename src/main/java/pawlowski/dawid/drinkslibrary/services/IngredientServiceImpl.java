@@ -3,6 +3,7 @@ package pawlowski.dawid.drinkslibrary.services;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import pawlowski.dawid.drinkslibrary.enities.Drink;
 import pawlowski.dawid.drinkslibrary.mappers.DrinkMapper;
 import pawlowski.dawid.drinkslibrary.model.DrinkDTO;
@@ -10,6 +11,7 @@ import pawlowski.dawid.drinkslibrary.model.IngredientDTO;
 import pawlowski.dawid.drinkslibrary.repositories.DrinkRepository;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Slf4j
 @Service
@@ -28,72 +30,72 @@ public class IngredientServiceImpl implements IngredientService {
         IngredientDTO ingredient1 = IngredientDTO.builder()
                 .id(UUID.randomUUID())
                 .alcoholType("Peach Schnapps [ml]")
-                .quantity(25)
+                .quantity(25.0)
                 .build();
         IngredientDTO ingredient2 = IngredientDTO.builder()
                 .id(UUID.randomUUID())
                 .alcoholType("Orange Slices")
-                .quantity(2)
+                .quantity(2.0)
                 .build();
         IngredientDTO ingredient3 = IngredientDTO.builder()
                 .id(UUID.randomUUID())
                 .alcoholType("Cranberry Juice xDDDD [ml]")
-                .quantity(50)
+                .quantity(50.0)
                 .build();
         IngredientDTO ingredient4 = IngredientDTO.builder()
                 .id(UUID.randomUUID())
                 .alcoholType("Pineapple Juice [ml]")
-                .quantity(120)
+                .quantity(120.0)
                 .build();
         IngredientDTO ingredient5 = IngredientDTO.builder()
                 .id(UUID.randomUUID())
                 .alcoholType("White Rum [ml]")
-                .quantity(60)
+                .quantity(60.0)
                 .build();
         IngredientDTO ingredient6 = IngredientDTO.builder()
                 .id(UUID.randomUUID())
                 .alcoholType("Coconut Cream [ml]")
-                .quantity(60)
+                .quantity(60.0)
                 .build();
         IngredientDTO ingredient7 = IngredientDTO.builder()
                 .id(UUID.randomUUID())
                 .alcoholType("Vodka [ml]")
-                .quantity(60)
+                .quantity(60.0)
                 .build();
         IngredientDTO ingredient8 = IngredientDTO.builder()
                 .id(UUID.randomUUID())
                 .alcoholType("Dry Vermouth table spoon")
-                .quantity(1)
+                .quantity(1.0)
                 .build();
         IngredientDTO ingredient9 = IngredientDTO.builder()
                 .id(UUID.randomUUID())
                 .alcoholType("Olive Peal")
-                .quantity(1)
+                .quantity(1.0)
                 .build();
         IngredientDTO ingredient10 = IngredientDTO.builder()
                 .id(UUID.randomUUID())
                 .alcoholType("Lime Juice [ml]")
-                .quantity(30)
+                .quantity(30.0)
                 .build();
         IngredientDTO ingredient11 = IngredientDTO.builder()
                 .id(UUID.randomUUID())
                 .alcoholType("Sugar table spoon")
-                .quantity(1)
+                .quantity(1.0)
                 .build();
         IngredientDTO ingredient12 = IngredientDTO.builder()
                 .id(UUID.randomUUID())
                 .alcoholType("Mint Leaves")
-                .quantity(5)
+                .quantity(5.0)
                 .build();
         IngredientDTO ingredient13 = IngredientDTO.builder()
                 .id(UUID.randomUUID())
                 .alcoholType("Soda Water [ml]")
-                .quantity(30)
+                .quantity(30.0)
                 .build();
         IngredientDTO ingredient14 = IngredientDTO.builder()
                 .id(UUID.randomUUID())
                 .alcoholType("White Rum [ml]")
-                .quantity(60)
+                .quantity(60.0)
                 .build();
 
         List<IngredientDTO> ingredients = List.of(ingredient0, ingredient1, ingredient2, ingredient3, ingredient4, ingredient5, ingredient6, ingredient7,
@@ -150,6 +152,20 @@ public class IngredientServiceImpl implements IngredientService {
                 .build();
         ingredientMap.put(updatedIngredient.getId(), updatedIngredient);
         return Optional.of(updatedIngredient);
+    }
+
+    @Override
+    public Optional<IngredientDTO> patchIngredientById(UUID id, IngredientDTO ingredientDTO) {
+
+        IngredientDTO ingredientToPatch = ingredientMap.get(id);
+            if(ingredientDTO.getAlcoholType() != null)
+                ingredientToPatch.setAlcoholType(ingredientDTO.getAlcoholType());
+            if(ingredientDTO.getQuantity() != null)
+                ingredientToPatch.setQuantity(ingredientDTO.getQuantity());
+            if(ingredientDTO.getDrink() != null)
+                ingredientToPatch.setDrink(ingredientDTO.getDrink());
+
+        return Optional.of(ingredientToPatch);
     }
 
     @Override

@@ -21,6 +21,8 @@ public interface IngredientService {
 
     Optional<IngredientDTO> updateIngredientById(UUID id, IngredientDTO ingredientDTO);
 
+    Optional<IngredientDTO> patchIngredientById(UUID id, IngredientDTO ingredientDTO);
+
     Boolean deleteIngredientById(UUID id);
 
     Boolean deleteIngredients();

@@ -63,6 +63,13 @@ public class IngredientController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
+    @PatchMapping(INGREDIENT_PATH_ID)
+    public ResponseEntity handlePatch(@PathVariable("ingredientId") UUID ingredientId, @RequestBody IngredientDTO ingredientDTO){
+        ingredientService.patchIngredientById(ingredientId, ingredientDTO);
+
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
     @DeleteMapping(INGREDIENT_PATH_ID)
     public ResponseEntity handleDeleteById(@PathVariable("ingredientId") UUID ingredientId){
         if( !ingredientService.deleteIngredientById(ingredientId))

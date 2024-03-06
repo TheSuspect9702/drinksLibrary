@@ -3,6 +3,7 @@ package pawlowski.dawid.drinkslibrary.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import pawlowski.dawid.drinkslibrary.enities.Drink;
 import pawlowski.dawid.drinkslibrary.mappers.IngredientMapper;
 import pawlowski.dawid.drinkslibrary.model.IngredientDTO;
@@ -23,10 +24,6 @@ public class IngredientServiceJpa implements IngredientService {
     private final IngredientMapper ingredientMapper;
     @Override
     public List<IngredientDTO> listIngredients() {
-        List<IngredientDTO> tempList = ingredientRepository.findAll()
-                .stream()
-                .map(ingredientMapper::ingredientToIngredientDto)
-                .collect(Collectors.toList());
         return ingredientRepository.findAll()
                 .stream()
                 .map(ingredientMapper::ingredientToIngredientDto)
@@ -61,6 +58,23 @@ public class IngredientServiceJpa implements IngredientService {
         }, () -> {
                 atomicReference.set(Optional.empty());
     });
+        return atomicReference.get();
+    }
+
+    @Override
+    public Optional<IngredientDTO> patchIngredientById(UUID id, IngredientDTO ingredientDTO) {
+        AtomicReference<Optional<IngredientDTO>> atomicReference = new AtomicReference<>();
+        ingredientRepository.findById(id).ifPresentOrElse(ingredientToPatch -> {
+            if(ingredientDTO.getAlcoholType() != null)
+                ingredientToPatch.setAlcoholType(ingredientDTO.getAlcoholType());
+            if(ingredientDTO.getQuantity() != null)
+                ingredientToPatch.setQuantity(ingredientDTO.getQuantity());
+            if(ingredientDTO.getDrink() != null)
+                ingredientToPatch.setDrink(ingredientDTO.getDrink());
+            atomicReference.set(Optional.of(ingredientMapper.ingredientToIngredientDto(ingredientRepository.save(ingredientToPatch))));
+        }, () -> {
+            atomicReference.set(Optional.empty());
+        });
         return atomicReference.get();
     }
 
