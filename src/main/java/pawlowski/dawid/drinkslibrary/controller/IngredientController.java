@@ -34,16 +34,16 @@ public class IngredientController {
         return ingredientService.getIngredientById(ingredientId).orElseThrow(NotFoundException::new);
     }
 
-   /* @PostMapping(INGREDIENT_PATH)
+    @PostMapping("/api/v1/multipleIngredients")
     public ResponseEntity handleMultiplePost(@Validated @RequestBody List<IngredientDTO> ingredientDTOS){
         List<IngredientDTO> newIngredients = ingredientService.saveNewIngredients(ingredientDTOS);
 
         HttpHeaders headers = new HttpHeaders();
         for(IngredientDTO newIngredient : newIngredients)
-            headers.add("Location",INGREDIENT_PATH + "/" + newIngredient.getId().toString());
+            headers.add("Location","/api/v1/multipleIngredients" + "/" + newIngredient.getId().toString());
 
         return new ResponseEntity(headers, HttpStatus.CREATED);
-    }*/
+    }
 
     @PostMapping(INGREDIENT_PATH)
     public ResponseEntity handlePost(@Validated @RequestBody IngredientDTO ingredientDTO) {

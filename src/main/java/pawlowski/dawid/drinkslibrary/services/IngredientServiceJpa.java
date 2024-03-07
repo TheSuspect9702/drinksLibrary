@@ -9,6 +9,7 @@ import pawlowski.dawid.drinkslibrary.mappers.IngredientMapper;
 import pawlowski.dawid.drinkslibrary.model.IngredientDTO;
 import pawlowski.dawid.drinkslibrary.repositories.IngredientRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -42,10 +43,14 @@ public class IngredientServiceJpa implements IngredientService {
         return ingredientMapper.ingredientToIngredientDto(ingredientRepository.save(ingredientMapper.ingredientDtoToIngredient(ingredientDTO)));
     }
 
-    /*@Override
+    @Override
     public List<IngredientDTO> saveNewIngredients(List<IngredientDTO> ingredientDTOS) {
-        return null;
-    }*/
+        List<IngredientDTO> ingredients = new ArrayList<>();
+        for(IngredientDTO nextIngredient : ingredientDTOS)
+            ingredients.add(ingredientMapper.ingredientToIngredientDto(ingredientRepository
+                    .save(ingredientMapper.ingredientDtoToIngredient(nextIngredient))));
+        return ingredients;
+    }
 
     @Override
     public Optional<IngredientDTO> updateIngredientById(UUID id, IngredientDTO ingredientDTO) {

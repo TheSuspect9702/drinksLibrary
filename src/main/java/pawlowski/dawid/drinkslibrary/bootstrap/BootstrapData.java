@@ -22,10 +22,11 @@ public class BootstrapData implements CommandLineRunner {
     private final IngredientRepository ingredientRepository;
     @Override
     public void run(String... args) throws Exception {
-        loadDrinkData();
+        if(drinkRepository.count() == 0) // later change it to something more equivalent
+            loadData();
     }
 
-    private void loadDrinkData() {
+    private void loadData() {
         Drink drink0 = Drink.builder()
                 .name("Sex on the Beach")
                 .power(DrinkPower.MEDIUM)

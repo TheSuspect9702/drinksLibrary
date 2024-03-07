@@ -39,7 +39,7 @@ public class IngredientServiceImpl implements IngredientService {
                 .build();
         IngredientDTO ingredient3 = IngredientDTO.builder()
                 .id(UUID.randomUUID())
-                .alcoholType("Cranberry Juice xDDDD [ml]")
+                .alcoholType("Cranberry Juice [ml]")
                 .quantity(50.0)
                 .build();
         IngredientDTO ingredient4 = IngredientDTO.builder()
@@ -126,7 +126,7 @@ public class IngredientServiceImpl implements IngredientService {
         return newIngredient;
     }
 
-   /* @Override
+    @Override
     public List<IngredientDTO> saveNewIngredients(List<IngredientDTO> ingredientDTOS) {
         List<IngredientDTO> ingredients = new ArrayList<>();
         for(IngredientDTO nextIngredient : ingredientDTOS){
@@ -140,7 +140,7 @@ public class IngredientServiceImpl implements IngredientService {
             ingredientMap.put(newIngredient.getId(),newIngredient);
         }
         return ingredients;
-    }*/
+    }
 
     @Override
     public Optional<IngredientDTO> updateIngredientById(UUID id, IngredientDTO ingredientDTO) {
