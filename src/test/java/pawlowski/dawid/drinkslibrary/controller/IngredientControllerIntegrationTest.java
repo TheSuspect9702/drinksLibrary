@@ -21,9 +21,7 @@ import pawlowski.dawid.drinkslibrary.model.IngredientDTO;
 import pawlowski.dawid.drinkslibrary.repositories.DrinkRepository;
 import pawlowski.dawid.drinkslibrary.repositories.IngredientRepository;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -98,6 +96,53 @@ class IngredientControllerIntegrationTest {
         
         Ingredient ingredient = ingredientRepository.getReferenceById(savedId);
         assertThat(ingredient).isNotNull();
+    }
+    @Transactional
+    @Rollback
+    @Test
+    void testPostMultipleIngredients(){
+        IngredientDTO ingredientDTO = IngredientDTO.builder()
+                .alcoholType("jakis alkohol")
+                .quantity(10.0)
+                .drink(drinkRepository.findAll().get(0))
+                .build();
+        IngredientDTO ingredientDTO2 = IngredientDTO.builder()
+                .alcoholType("jakis alkohol 1")
+                .quantity(5.0)
+                .drink(drinkRepository.findAll().get(1))
+                .build();
+        List<IngredientDTO> ingredientDTOS = new ArrayList<>(Arrays.asList(ingredientDTO, ingredientDTO2));
+
+        ResponseEntity responseEntity = ingredientController.handleMultiplePost(ingredientDTOS);
+
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(201));
+        assertThat(responseEntity.getHeaders().getLocation()).isNotNull();
+
+    }
+
+    @Test
+    void testSaveBadMultipleIngredients() throws Exception {
+        IngredientDTO ingredientDTO = IngredientDTO.builder()
+                .alcoholType("jakis alkohol")
+                .quantity(10.0)
+                .drink(drinkRepository.findAll().get(0))
+                .build();
+        IngredientDTO ingredientDTO2 = IngredientDTO.builder()
+                .alcoholType("jakis alkohol 1")
+                .quantity(-5.0)
+                .drink(drinkRepository.findAll().get(1))
+                .build();
+
+        List<IngredientDTO> ingredientDTOS = new ArrayList<>(Arrays.asList(ingredientDTO, ingredientDTO2));
+
+        MvcResult response = mockMvc.perform(post("/api/v1/multipleIngredients")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(ingredientDTOS)))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+
+        System.out.println(response.getResponse().getContentAsString());
     }
 
     @Test

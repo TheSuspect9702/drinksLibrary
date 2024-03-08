@@ -7,14 +7,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import pawlowski.dawid.drinkslibrary.model.DrinkDTO;
 import pawlowski.dawid.drinkslibrary.model.IngredientDTO;
-import pawlowski.dawid.drinkslibrary.repositories.DrinkRepository;
 import pawlowski.dawid.drinkslibrary.services.IngredientService;
 
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * TODO add test cases for adding multiple ingredients, start implementing some frontend page to work with data from db
+ *
+ */
 @Slf4j
 @RequiredArgsConstructor
 @RestController
