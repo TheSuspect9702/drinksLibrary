@@ -1,7 +1,7 @@
 package pawlowski.dawid.drinkslibrary.model;
 
 public enum DrinkPower {
-    SOFT(1), MEDIUM(3), STRONG(5), EXTRA_STRONG(8), PURE_ALCOHOL(10);
+    SOFT(1), MEDIUM(2), STRONG(3), EXTRA_STRONG(4), PURE_ALCOHOL(5);
 
     private final int numericValue;
 

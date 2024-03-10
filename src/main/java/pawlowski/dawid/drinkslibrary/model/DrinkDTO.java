@@ -1,8 +1,10 @@
 package pawlowski.dawid.drinkslibrary.model;
 
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import pawlowski.dawid.drinkslibrary.enities.Ingredient;
 
 import java.util.List;
@@ -11,6 +13,8 @@ import java.util.UUID;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class DrinkDTO {
     private UUID id;
 

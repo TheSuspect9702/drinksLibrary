@@ -11,7 +11,7 @@
     <tr>
         <th>Name</th>
         <th>Description</th>
-        <th>Power in scale from 0 to 10</th>
+        <th>Power in scale from 1 to 5</th>
         <th>Ingredients</th>
     </tr>
     <tr th:each="drink : ${drinks}">
@@ -28,5 +28,6 @@
         </td>
     </tr>
 </table>
+<a href="/drinks/add" class="button">Add New Drink</a>
 </body>
 </html>
