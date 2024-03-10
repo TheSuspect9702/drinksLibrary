@@ -12,7 +12,14 @@
     <input type="text" name="name" placeholder="Name of the drink" required>
     <input type="text" name="description" placeholder="Description" required>
     <input type="text" name="rating" placeholder="Rating" required>
-    <input type="text" name="power" placeholder="Drink Power" required>
+    <select name="power" id="power" required>
+        <option value="">Select power</option>
+        <option value="SOFT">1</option>
+        <option value="MEDIUM">2</option>
+        <option value="STRONG">3</option>
+        <option value="EXTRA_STRONG">4</option>
+        <option value="PURE_ALCOHOL">5</option>
+    </select>
     <input type="submit" value="Submit">
     <a href="/drinks" class="button back-button">Go Back</a>
 </form>

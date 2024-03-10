@@ -36,7 +36,7 @@ public class WebPageDrinkController {
         if (result.hasErrors()) {
             return "addDrink";
         }
-        drinkService.saveNewDrink(drinkDTO); // Assuming you have a method in your service to save the drink
+        drinkService.saveNewDrink(drinkDTO);
         return "redirect:/drinks"; // Redirect back to the drinks list
     }
 }
