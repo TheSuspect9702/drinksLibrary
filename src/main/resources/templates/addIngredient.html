@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Ingredient to Drink</title>
+    <link rel="stylesheet" href="/css/addIngredient.css"/>
+</head>
+<body>
+<div class="container">
+<div>
+<h1>Add New Ingredient</h1>
+</div>
+
+<h2 th:text="'Adding ingredient to ' + ${drinkDTO.name}"></h2>
+
+<form th:action="@{/drinks/addIngredient/{drinkId}(drinkId=${drinkDTO.id})}" th:method="post">
+    <div>
+        <input type="text" name="alcoholType" placeholder="Type of the ingredient" required>
+    </div>
+    <div>
+        <input type="text" name="quantity" placeholder="Amount of ingredient" required>
+    </div>
+    <div class="button-container">
+        <button type="submit">Add Ingredient</button>
+        <a href="/drinks" class="button">Back to Drinks List</a>
+    </div>
+</form>
+</div>
+</body>
+</html>

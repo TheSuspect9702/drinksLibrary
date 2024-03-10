@@ -14,7 +14,7 @@
         <th>Power in scale from 1 to 5</th>
         <th>Ingredients</th>
     </tr>
-    <tr th:each="drink : ${drinks}">
+    <tr th:each="drink : ${drinks}" th:data-id="${drink.id}" class="clickable-row">
         <td th:text="${drink.name}"></td>
         <td th:text="${drink.description}" class="descriptionText"></td>
         <td th:text="${drink.power.getNumericValue()}"></td>
@@ -29,5 +29,16 @@
     </tr>
 </table>
 <a href="/drinks/add" class="button">Add New Drink</a>
+<script th:inline="javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        const rows = document.querySelectorAll('.clickable-row');
+        rows.forEach(row => {
+            row.addEventListener('click', function() {
+                const drinkId = this.getAttribute('data-id');
+                window.location.href = 'drinks/addIngredient/' + drinkId;
+            });
+        });
+    });
+</script>
 </body>
 </html>
