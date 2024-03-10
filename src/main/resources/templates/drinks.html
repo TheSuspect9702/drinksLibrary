@@ -21,7 +21,7 @@
         <td>
             <ul>
                 <li th:each="ingredient : ${drink.ingredients}">
-                    <span th:text="${ingredient.key} + ': ' + ${ingredient.value}"></span>
+                    <span th:text="${ingredient.getAlcoholType()} + ': ' + ${ingredient.getQuantity()}"></span>
                     </br>
                 </li>
             </ul>
