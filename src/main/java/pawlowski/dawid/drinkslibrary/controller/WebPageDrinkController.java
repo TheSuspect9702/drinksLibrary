@@ -60,11 +60,12 @@ public class WebPageDrinkController {
     public String saveIngredient(@PathVariable UUID drinkId, IngredientDTO ingredientDTO, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("drinkDTO", drinkService.getDrinkById(drinkId));
+            model.addAttribute("org.springframework.validation.BindingResult.ingredientDTO", result);
             return "addIngredient";
         }
         ingredientDTO.setDrink(drinkMapper.drinkDtoToDrink(drinkService.getDrinkById(drinkId).get()));
         ingredientService.saveNewIngredient(ingredientDTO);
-        return "redirect:/drinks";
+        return "redirect:/drinks/addIngredient/{drinkId}";
     }
 }
 

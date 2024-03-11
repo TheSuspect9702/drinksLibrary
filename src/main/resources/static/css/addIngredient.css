@@ -50,5 +50,12 @@ input[type="submit"]:hover, .button:hover {
     justify-content: space-around;
     margin-top: 20px;
 }
+.invalid {
+    border-color: red;
+}
 
+.error-message {
+    color: red;
+    display: none;
+}
 

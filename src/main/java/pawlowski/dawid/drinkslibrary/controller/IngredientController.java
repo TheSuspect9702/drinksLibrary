@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * TODO add test cases for adding multiple ingredients, start implementing some frontend page to work with data from db
+ * TODO modify html files, that after passing wrong parameters there should be communicate not error
  *
  */
 @Slf4j

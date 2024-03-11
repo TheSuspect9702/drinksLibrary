@@ -12,13 +12,15 @@
 </div>
 
 <h2 th:text="'Adding ingredient to ' + ${drinkDTO.name}"></h2>
-
-<form th:action="@{/drinks/addIngredient/{drinkId}(drinkId=${drinkDTO.id})}" th:method="post">
+<form id="addIngredientForm" th:action="@{/drinks/addIngredient/{drinkId}(drinkId=${drinkDTO.id})}" th:method="post">
+    <label>Name:</label>
     <div>
         <input type="text" name="alcoholType" placeholder="Type of the ingredient" required>
     </div>
+        <label>Quantity:</label>
     <div>
-        <input type="text" name="quantity" placeholder="Amount of ingredient" required>
+        <input type="text" id="quantity" name="quantity" placeholder="Amount of ingredient" required>
+        <div id="quantityError" class="error-message" style="display:none;"></div>
     </div>
     <div class="button-container">
         <button type="submit">Add Ingredient</button>
@@ -26,5 +28,23 @@
     </div>
 </form>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var form = document.getElementById('addIngredientForm');
+        form.addEventListener('submit', function (e) {
+            var quantity = document.getElementById('quantity');
+            var quantityError = document.getElementById('quantityError');
+            if (parseInt(quantity.value, 10) <= 0) {
+                e.preventDefault();
+                quantity.classList.add('invalid');
+                quantityError.textContent = 'Quantity must be greater than 0';
+                quantityError.style.display = 'block';
+            } else {
+                quantity.classList.remove('invalid');
+                quantityError.style.display = 'none';
+            }
+        });
+    });
+</script>
 </body>
 </html>
